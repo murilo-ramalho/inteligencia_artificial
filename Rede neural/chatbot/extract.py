@@ -1,62 +1,69 @@
 import random
-import numpy as np
-import pickle
 import nltk
+import json
+import numpy as np
 from nltk.stem import WordNetLemmatizer
+from sklearn.preprocessing import LabelEncoder
+from tensorflow.keras.models import load_model
+import pickle
 
-lemmatizer = WordNetLemmatizer()
+# Carrega o modelo de rede neural treinado
+model = load_model('model.keras')
 
-# Carrega os arquivos necessários
+# Carrega as intenções (com codificação UTF-8 para evitar erros de caracteres)
+intents = json.loads(open('intents.json', encoding='utf-8').read())  # UTF-8 para evitar problemas de codificação
+
+# Carrega as palavras e classes usadas no treinamento
 words = pickle.load(open('words.pkl', 'rb'))
 classes = pickle.load(open('classes.pkl', 'rb'))
 
+lemmatizer = WordNetLemmatizer()
+
+# Mapeamento para corrigir variações de gênero (masculino/feminino)
+gender_map = {
+    "obrigado": "obrigada",  # Exemplo para garantir que "obrigado" seja tratado como "obrigada"
+    "bom": "boa",  # Garantir que "bom" seja tratado como "boa"
+    # Adicione outras palavras conforme necessário
+}
 
 def clear_writing(writing):
     """
-        Limpa todas as sentenças inseridas.
+    Limpa todas as sentenças inseridas, corrigindo palavras com variações de gênero.
     """
     sentence_words = nltk.word_tokenize(writing)
-    return [lemmatizer.lemmatize(word.lower()) for word in sentence_words]
+    cleaned_words = []
+    for word in sentence_words:
+        word = lemmatizer.lemmatize(word.lower())
+        # Verifica se a palavra tem uma variação de gênero que precisa ser padronizada
+        if word in gender_map:
+            word = gender_map[word]
+        cleaned_words.append(word)
+    return cleaned_words
 
-
-def bag_of_words(writing, words):
+def class_prediction(sentence, model):
     """
-        Cria um pacote de palavras baseado nas sentenças.
+    Faz a previsão da classe para uma sentença dada.
     """
-    sentence_words = clear_writing(writing)
-    bag = [0] * len(words)
-    for setence in sentence_words:
-        for i, word in enumerate(words):
-            if word == setence:
-                bag[i] = 1
+    sentence_words = clear_writing(sentence)
+    bag_of_words = [0] * len(words)
 
-    return np.array(bag)
+    for s in sentence_words:
+        for i, w in enumerate(words):
+            if w == s:
+                bag_of_words[i] = 1
 
+    return model.predict(np.array([bag_of_words]))[0]
 
-def class_prediction(writing, model):
+def get_response(ints, intents_json):
     """
-        Faz a previsão com base no pacote de palavras.
+    Retorna a resposta do bot com base na classe prevista.
     """
-    prevision = bag_of_words(writing, words)
-    response_prediction = model.predict(np.array([prevision]))[0]
-    results = [[index, response] for index, response in enumerate(response_prediction) if response > 0.25]
+    ERROR_THRESHOLD = 0.25
+    predicted_class = np.argmax(ints)
 
-    if "1" not in str(prevision) or len(results) == 0:
-        results = [[0, response_prediction[0]]]
+    if ints[predicted_class] > ERROR_THRESHOLD:
+        response = random.choice(intents_json['intents'][predicted_class]['responses'])
+    else:
+        response = "Desculpe, não entendi. Pode reformular a pergunta?"
 
-    results.sort(key=lambda x: x[1], reverse=True)
-    return [{"intent": classes[r[0]], "probability": str(r[1])} for r in results]
-
-
-def get_response(intents, intents_json):
-    """
-        Retorna a resposta com base na intenção.
-    """
-    tag = intents[0]['intent']
-    list_of_intents = intents_json['intents']
-    for idx in list_of_intents:
-        if idx['tag'] == tag:
-            result = random.choice(idx['responses'])
-            break
-
-    return result
+    return response

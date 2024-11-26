@@ -1,9 +1,8 @@
 import json
 import pickle
-import nltk
 import random
 import numpy as np
-
+import nltk
 from nltk.stem import WordNetLemmatizer
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense, Dropout
@@ -12,13 +11,14 @@ from tensorflow.keras.optimizers import SGD
 # Baixa os recursos do NLTK
 nltk.download('punkt')
 nltk.download('wordnet')
+nltk.download('punkt_tab')
 
 lemmatizer = WordNetLemmatizer()
 
 # Carrega as intenções
 words = []
 documents = []
-intents = json.loads(open('intents.json', encoding='utf-8').read())
+intents = json.loads(open('intents.json', encoding='utf-8').read())  # UTF-8 para evitar problemas de codificação
 classes = [i['tag'] for i in intents['intents']]
 ignore_words = ["!", "@", "#", "$", "%", "*", "?"]
 
@@ -29,15 +29,19 @@ for intent in intents['intents']:
         words.extend(word)
         documents.append((word, intent['tag']))
 
+# Lematiza as palavras e ignora as palavras irrelevantes
 words = [lemmatizer.lemmatize(w.lower()) for w in words if w not in ignore_words]
 words = sorted(list(set(words)))
 classes = sorted(list(set(classes)))
 
+# Salva as palavras e classes para uso futuro
 pickle.dump(words, open('words.pkl', 'wb'))
 pickle.dump(classes, open('classes.pkl', 'wb'))
 
 training = []
 output_empty = [0] * len(classes)
+
+# Prepara os dados para o treinamento
 for document in documents:
     bag = []
     pattern_words = document[0]

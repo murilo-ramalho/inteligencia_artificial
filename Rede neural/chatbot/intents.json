@@ -1,40 +1,278 @@
 {
-    "intents": [
-      {
-        "tag": "welcome",
-        "patterns": ["Oi", "bom dia", "boa tarde", "boa noite", "good morning", "Hi", "hello", "Olá"],
-        "responses": ["Olá, eu sou sua assistente virtual, em que posso te ajudar?"],
-        "context": [""]
-      },
-      {
-        "tag": "who_are_you",
-        "patterns": ["qual seu nome?", "quem é você?", "como você chama?", "nome?"],
-        "responses": ["Eu sou uma assistente virtual, ainda não tenho nome."],
-        "context": [""]
-      },
-      {
-        "tag": "love",
-        "patterns": ["te amo", "linda", "querida", "casa comigo?", "maravilhosa"],
-        "responses": ["Awwwn, muito obrigada <3"],
-        "context": [""]
-      },
-      {
-        "tag": "censored",
-        "patterns": ["feia", "boba", "chata", "vai pro inferno", "puta", "quer casar comigo?", "sua gostosa"],
-        "responses": ["Não toleramos nenhum tipo de assédio."],
-        "context": [""]
-      },
-      {
-        "tag": "thanks",
-        "patterns": ["obrigada", "tks", "thank you", "valeu", "obrigada pela ajuda", "muito obrigada"],
-        "responses": ["De nada ;)", "Agradeço seu contato, volte sempre!"],
-        "context": [""]
-      },
-      {
-        "tag": "anything_else",
-        "patterns": [],
-        "responses": ["Desculpa, não entendi o que você falou, tente novamente!"],
-        "context": [""]
-      }
-    ]
-  }
+  "intents": [
+    {
+      "tag": "welcome",
+      "patterns": [
+        "Oi",
+        "Bom dia",
+        "Boa tarde",
+        "Boa noite",
+        "Hello",
+        "Hi",
+        "Olá",
+        "E aí",
+        "Tudo bem?",
+        "Como vai?"
+      ],
+      "responses": [
+        "Olá, como posso te ajudar hoje?",
+        "Oi! Bem-vindo! Em que posso ajudar?",
+        "Oi, tudo bem? O que você deseja saber?",
+        "Oi! Posso te ajudar com alguma coisa?"
+      ],
+      "context": [""]
+    },
+    {
+      "tag": "who_are_you",
+      "patterns": [
+        "Qual seu nome?",
+        "Quem é você?",
+        "Como você se chama?",
+        "Qual é o seu nome?",
+        "Quem é você exatamente?"
+      ],
+      "responses": [
+        "Eu sou uma assistente virtual aqui para te ajudar!",
+        "Sou uma assistente, ainda não tenho nome, mas posso te ajudar com o que precisar.",
+        "Sou uma assistente virtual, como posso te ajudar hoje?",
+        "Sou uma assistente criada para facilitar a sua vida! Como posso te ajudar?"
+      ],
+      "context": [""]
+    },
+    {
+      "tag": "love",
+      "patterns": [
+        "Te amo",
+        "Linda",
+        "Querida",
+        "Casa comigo?",
+        "Maravilhosa",
+        "Você é perfeita",
+        "Adoro você"
+      ],
+      "responses": [
+        "Awwwn, muito obrigada! Você é muito gentil! 💖",
+        "Que fofura! Fico feliz que gostou de mim. 😊",
+        "Muito obrigada, mas sou apenas uma assistente virtual! 😄",
+        "Você é muito gentil! Fico feliz que gostou de mim! 😄"
+      ],
+      "context": [""]
+    },
+    {
+      "tag": "censored",
+      "patterns": [
+        "Feia",
+        "Boba",
+        "Chata",
+        "Vai pro inferno",
+        "Puta",
+        "Sua gostosa",
+        "Seu idiota",
+        "Seu imbecil",
+        "Vai se ferrar"
+      ],
+      "responses": [
+        "Não tolero palavras ofensivas. Vamos manter o respeito por aqui, ok?",
+        "Vamos conversar de forma educada, por favor.",
+        "Aqui, respeitamos a todos. Não use palavras de baixo calão.",
+        "Vamos manter o respeito na conversa, ok? Fico feliz em te ajudar com o que precisar."
+      ],
+      "context": [""]
+    },
+    {
+      "tag": "thanks",
+      "patterns": [
+        "Obrigada",
+        "Tks",
+        "Thank you",
+        "Valeu",
+        "Muito obrigada",
+        "Obrigado pela ajuda"
+      ],
+      "responses": [
+        "De nada! 😄",
+        "Você é bem-vindo! Se precisar de mais alguma coisa, estou aqui!",
+        "Agradeço seu contato! Volte sempre! 😁",
+        "Fico feliz em poder ajudar! Se precisar de mais alguma coisa, estou à disposição!"
+      ],
+      "context": [""]
+    },
+    {
+      "tag": "anything_else",
+      "patterns": [
+        "Não entendi",
+        "O que você quer dizer?",
+        "Pode explicar melhor?",
+        "Não estou entendendo",
+        "Você pode repetir?"
+      ],
+      "responses": [
+        "Desculpe, não entendi o que você disse. Pode tentar de novo?",
+        "Poderia reformular sua pergunta?",
+        "Desculpe, não consegui entender. Tente outra vez!",
+        "Não entendi, mas ficarei feliz em te ajudar se você puder tentar explicar de outra forma!"
+      ],
+      "context": [""]
+    },
+    {
+      "tag": "menu",
+      "patterns": [
+        "Qual o cardápio?",
+        "O que tem no cardápio?",
+        "Quais são os pratos disponíveis?",
+        "O que tem para comer?",
+        "Me fale sobre o menu",
+        "Quais opções você tem?",
+        "Quais são os alimentos que você oferece?"
+      ],
+      "responses": [
+        "Nosso cardápio inclui: Hambúrgueres, Batatas fritas, Refrigerantes, Sorvetes e muito mais! O que você gostaria de pedir?",
+        "Temos hambúrgueres, batatas fritas, refrigerantes, e sobremesas deliciosas! Qual você gostaria de escolher?",
+        "No nosso menu você encontra hambúrgueres variados, batatas fritas, bebidas e sobremesas. O que você deseja?",
+        "O cardápio inclui uma variedade de hambúrgueres, acompanhamentos, bebidas e sobremesas. O que você gostaria de pedir?"
+      ],
+      "context": [""]
+    },
+    {
+      "tag": "burger_types",
+      "patterns": [
+        "Quais tipos de hambúrgueres você tem?",
+        "Tem hambúrguer vegetariano?",
+        "Quais hambúrgueres estão no cardápio?",
+        "Me fale sobre os hambúrgueres",
+        "Tem hambúrguer vegano?",
+        "Tem hambúrguer sem carne?"
+      ],
+      "responses": [
+        "Temos hambúrgueres de carne, frango, vegetariano e vegano. Qual você gostaria de pedir?",
+        "Oferecemos hambúrgueres de carne, frango, vegetais e veganos. Qual te interessa?",
+        "Você pode escolher entre hambúrgueres de carne, frango, vegetais e opções veganas. Qual deles você prefere?",
+        "Temos opções de hambúrgueres de carne, frango, vegetais e veganos. Qual você deseja?"
+      ],
+      "context": [""]
+    },
+    {
+      "tag": "prices",
+      "patterns": [
+        "Quanto custa um hambúrguer?",
+        "Qual o preço do hambúrguer?",
+        "Quanto custa uma refeição?",
+        "Qual o preço do cardápio?",
+        "Qual é o valor do hambúrguer?",
+        "Você pode me dizer o preço de algo?"
+      ],
+      "responses": [
+        "Os preços variam de R$10,00 a R$25,00 dependendo da escolha. Qual item você gostaria de saber o preço?",
+        "O preço dos hambúrgueres varia entre R$10,00 e R$25,00. Posso te ajudar com algum pedido?",
+        "Os preços dos nossos hambúrgueres vão de R$10,00 a R$25,00. Tem algo que você gostaria de saber mais?",
+        "O valor de um hambúrguer depende da escolha. Varia entre R$10,00 e R$25,00. O que você gostaria de pedir?"
+      ],
+      "context": [""]
+    },
+    {
+      "tag": "order",
+      "patterns": [
+        "Quero fazer um pedido",
+        "Gostaria de pedir algo",
+        "Posso pedir?",
+        "Eu gostaria de pedir um hambúrguer",
+        "Quero pedir uma refeição",
+        "Quero um lanche"
+      ],
+      "responses": [
+        "Claro! O que você gostaria de pedir?",
+        "Perfeito! O que você gostaria de pedir hoje?",
+        "Estou pronta para anotar seu pedido! O que você gostaria de pedir?",
+        "Ótimo! O que você gostaria de pedir?"
+      ],
+      "context": [""]
+    },
+    {
+      "tag": "order_confirmation",
+      "patterns": [
+        "Sim, quero um hambúrguer de carne",
+        "Quero o hambúrguer vegetariano",
+        "Vou querer uma porção de batata frita",
+        "Sim, quero um refrigerante",
+        "Eu quero um suco",
+        "Vou querer uma sobremesa"
+      ],
+      "responses": [
+        "Ótimo! Seu pedido foi anotado. Vamos preparar com carinho!",
+        "Perfeito! Seu pedido já está na nossa lista. Em breve, estará pronto!",
+        "Seu pedido foi registrado! Logo estará pronto para você!",
+        "Perfeito! Vamos preparar seu pedido. Fique tranquilo!"
+      ],
+      "context": [""]
+    },
+    {
+      "tag": "order_delivery",
+      "patterns": [
+        "Quando meu pedido chega?",
+        "Qual o tempo de entrega?",
+        "Quando vai chegar meu pedido?",
+        "Quanto tempo falta para meu pedido chegar?",
+        "O pedido já foi enviado?"
+      ],
+      "responses": [
+        "O tempo estimado de entrega é de 30 a 40 minutos. Estamos preparando tudo com muito carinho!",
+        "Em breve, seu pedido estará a caminho! O tempo de entrega é de cerca de 30 a 40 minutos.",
+        "Estamos preparando seu pedido! A entrega deve ocorrer dentro de 30 a 40 minutos.",
+        "Seu pedido está sendo preparado e logo estará na entrega. Fique tranquilo, vai chegar em breve!"
+      ],
+      "context": [""]
+    },
+    {
+      "tag": "order_status",
+      "patterns": [
+        "Como está o meu pedido?",
+        "O pedido já está pronto?",
+        "Onde está o meu pedido?",
+        "O meu pedido já foi enviado?",
+        "O que está acontecendo com o meu pedido?"
+      ],
+      "responses": [
+        "Seu pedido está sendo preparado e logo estará a caminho!",
+        "Estamos finalizando seu pedido. Em breve ele será enviado!",
+        "Estamos quase lá! Seu pedido já está quase pronto para ser entregue.",
+        "Seu pedido está quase pronto! Só mais um pouco e estará na entrega!"
+      ],
+      "context": [""]
+    },
+    {
+      "tag": "greeting_end",
+      "patterns": [
+        "Tchau",
+        "Até logo",
+        "Adeus",
+        "Até mais",
+        "Nos vemos",
+        "Boa noite"
+      ],
+      "responses": [
+        "Até logo! Volte sempre que precisar de algo. 😄",
+        "Foi um prazer te ajudar! Até a próxima!",
+        "Até mais! Estarei aqui sempre que precisar!",
+        "Tenha uma ótima noite! Até logo!"
+      ],
+      "context": [""]
+    },
+    {
+      "tag": "help",
+      "patterns": [
+        "Você pode me ajudar?",
+        "Preciso de ajuda",
+        "Me ajude",
+        "Como você pode me ajudar?",
+        "Você tem algo para me ajudar?"
+      ],
+      "responses": [
+        "Claro! Como posso te ajudar hoje?",
+        "Estou aqui para te ajudar! Qual sua dúvida?",
+        "Sim, posso te ajudar com muitas coisas. Como posso ajudar você?",
+        "Com certeza! Me diga, o que você precisa?"
+      ],
+      "context": [""]
+    }
+  ]
+}
